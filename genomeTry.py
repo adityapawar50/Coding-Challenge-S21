@@ -6,13 +6,15 @@ from Bio.SeqFeature import SeqFeature, FeatureLocation
 
 record = SeqIO.read("Genome.gb", "genbank")
 
+#creates diagram and adds feature track
 gd_diagram = GenomeDiagram.Diagram(record.id)
 gd_track_for_features = gd_diagram.new_track(1, name="Annotated Features")
-gd_track_for_features2 = gd_diagram.new_track(2, name="otra")
 
 gd_feature_set = gd_track_for_features.new_set()
 
 
+
+# for the feature sets color to altenrate between genomic variants and adds arrows for direction
 for feature in record.features:
     if feature.type != "gene":
         #Exclude this feature
@@ -28,6 +30,8 @@ for feature in record.features:
 
 
 
+
+#draws diagram to file
 
 gd_diagram.draw(format="circular", circular=True, pagesize=(20*cm,20*cm),
                 start=0, end=len(record), circle_core = 0.5)
